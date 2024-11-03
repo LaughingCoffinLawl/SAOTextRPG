@@ -3,6 +3,8 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+// Virtual item class (cannot be instantiated)
+
 class Item {
 public:
 	Item() = default;

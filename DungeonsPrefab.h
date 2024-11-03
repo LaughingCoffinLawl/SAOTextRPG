@@ -13,7 +13,7 @@
 #define DUNGEON_PREFAB_H
 
 namespace DungeonsPrefab {
-    Dungeon createPrefabs();
+    Dungeon createPrefabs();    // Picks a random dungeon between the prefabs
 }
 
 #endif // DUNGEONS_PREFAB_H

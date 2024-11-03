@@ -1,5 +1,6 @@
 #include "MonsterFactory.h"
 
+// Creates a random monster
 std::unique_ptr<Monster> MonsterFactory::createRandomMonster() {
 	int monsterToSpawn{ Random::RollD20() % 2 };
 	switch (monsterToSpawn) {
@@ -9,6 +10,8 @@ std::unique_ptr<Monster> MonsterFactory::createRandomMonster() {
 	}
 }
 
+// Creates a random weapon with random damage
+// Legendary if the dice rolls 20
 std::unique_ptr<Weapon> MonsterFactory::createRandomWeapon() {
 	int weaponToCreate{ Random::RollD20() };
 	if (weaponToCreate == 20) {
@@ -20,7 +23,7 @@ std::unique_ptr<Weapon> MonsterFactory::createRandomWeapon() {
 		return std::make_unique<Weapon>(Random::get(1, 10));
 	}
 }
-
+// Spawns the boss
 std::unique_ptr<Boss> MonsterFactory::spawnBoss() {
 	return std::make_unique<Boss>();
 }

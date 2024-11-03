@@ -3,8 +3,6 @@
 #include <iostream>
 
 int main() {
-
+	// Starts the game
 	Game game{};
-
-	std::cin.get();
 }

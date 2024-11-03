@@ -1,8 +1,10 @@
 #include "Dungeon.h"
 
+// Creates the dungeon
 Dungeon::Dungeon(std::array<std::unique_ptr<Room>, 36>& dungeon)
 	: m_dungeon{ std::move(dungeon) }
 {
+    // Gets the startroom and set Player Position 
 	for (std::size_t i{ 0 }; i < m_dungeon.size(); i++) {
 		if (dynamic_cast<StartRoom*>(m_dungeon[i].get())) {
 			m_playerPosition = i;
@@ -11,6 +13,7 @@ Dungeon::Dungeon(std::array<std::unique_ptr<Room>, 36>& dungeon)
 	}
 }
 
+// Gets the room by index (e.g. dungeon(1, 2) returns the type of that room)
 Room& Dungeon::operator()(std::size_t row, std::size_t column) {
 	assert(row < m_rows && column < m_columns && "Indexes are out of bound! (exceed 6)");
     std::size_t index = (row * m_columns) + column;
@@ -18,11 +21,13 @@ Room& Dungeon::operator()(std::size_t row, std::size_t column) {
     return *m_dungeon[index];
 }
 
+// Gets the room by index (e.g. dungeon[1] returns the type of that room)
 Room& Dungeon::operator[](std::size_t index) {
     assert(index < m_dungeon.size() && "Index is out of bounds!");
 	return *m_dungeon[index];
 }
 
+// Prints the whole dungeon as text
 void Dungeon::display() {
     const std::string greenColor = "\033[32m";
     const std::string resetColor = "\033[0m";
@@ -41,10 +46,12 @@ void Dungeon::display() {
     }
 }
 
+// Returns the player position
 std::size_t Dungeon::getPlayerPosition() const {
 	return m_playerPosition;
 }
 
+// Move the player based on the direction selected
 RoomResult Dungeon::movePlayer(char direction) {
     // get the row index
     std::size_t row{ m_playerPosition / m_rows };
@@ -79,6 +86,7 @@ RoomResult Dungeon::movePlayer(char direction) {
     return std::monostate{};
 }
 
+// Reset the player position, when the dungeon is cleared
 void Dungeon::resetPlayerPosition() {
     for (std::size_t i{ 0 }; i < m_dungeon.size(); i++) {
         if (dynamic_cast<StartRoom*>(m_dungeon[i].get())) {

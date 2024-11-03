@@ -5,12 +5,12 @@
 
 class Boar : public Monster {
 public:
-	explicit Boar();
-	int attack() const override;
-	int useSkill() const override;
-	std::ostream& print(std::ostream& out) const override;
+	explicit Boar();										// Constructor
+	int attack() const override;							// Returns attack as an int
+	int useSkill() const override;							// Returns skill attack as an int
+	std::ostream& print(std::ostream& out) const override;	// Object can be printed
 private:
-	int m_skill{ 9 };
+	int m_skill{ 9 };										// Skill damage
 };
 
 #endif // !BOAR_H

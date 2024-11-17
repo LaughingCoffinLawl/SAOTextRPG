@@ -1,22 +1,21 @@
 #include "Game.h"
 
 /*
-* When the game starts
-* Player is asked to enter a name -> Player object is created with that name
-* A random dungeon is created by picking a random prefab
-* Init() is called
-* Update() is called
-*/
+ * When the game starts
+ * Player is asked to enter a name -> Player object is created with that name
+ * A random dungeon is created by picking a random prefab
+ * Init() is called
+ * Update() is called
+ */
 Game::Game()
 	: m_player{ std::make_unique<Player>(playerName()) }
-	, m_dungeon{ std::make_unique<Dungeon>(DungeonsPrefab::createPrefabs()) }
-{
+	, m_dungeon{ std::make_unique<Dungeon>(Graph().returnDungeon()) } {
 	init();
 	update();
 }
 
 // Returns true or false if the game is currently playing or not
-bool Game::getPlaying() const{
+bool Game::getPlaying() const {
 	return m_playing;
 }
 
@@ -98,11 +97,9 @@ int Game::getInventorySelection() const {
 
 		if (item >= 0 && item <= 4) {
 			return item;
-		}
-		else if (item == 5) {
+		} else if (item == 5) {
 			return -1; // Use -1 to indicate exit
-		}
-		else {
+		} else {
 			std::cout << "Invalid selection. Please try again.\n";
 		}
 	}
@@ -141,7 +138,6 @@ int Game::getBattleSelection() const {
 // Battle loop
 bool Game::battle(Monster& monster) {
 	while (!m_player->isDead() && !monster.isDead()) {
-
 		switch (int action{ getBattleSelection() }) {
 		case 0:
 			monster.takeHit(m_player->attack());
@@ -174,7 +170,6 @@ bool Game::battle(Monster& monster) {
 // Boss battle loop
 bool Game::bossBattle(Boss& boss) {
 	while (!m_player->isDead() && !boss.isDead()) {
-
 		switch (int action{ getBattleSelection() }) {
 		case 0:
 			boss.takeHit(m_player->attack());
@@ -239,12 +234,11 @@ void Game::handleMonsterEvent(const RoomResult& event) {
 		std::cout << "Your current health: " << m_player->getHealth() << '\n';
 		handleLevelup();
 		handleMonsterDrop(*monsterPtr);
-	}
-	else if (m_player->isDead()) {
+	} else if (m_player->isDead()) {
 		std::cout << "Game over!\n";
 		setPlaying();
 	} else {
-			std::cout << "You fled the battle and returned to the previous room.\n";
+		std::cout << "You fled the battle and returned to the previous room.\n";
 	}
 }
 
@@ -259,12 +253,10 @@ void Game::handleBossEvent(const RoomResult& event) {
 		std::cout << "Your current health: " << m_player->getHealth() << '\n';
 		handleLevelup();
 		handleMonsterDrop(*bossPtr);
-	}
-	else if (m_player->isDead()) {
+	} else if (m_player->isDead()) {
 		std::cout << "Game over!\n";
 		setPlaying();
-	}
-	else {
+	} else {
 		std::cout << "You fled the battle and returned to the previous room.\n";
 	}
 }
@@ -285,17 +277,17 @@ void Game::handleWeaponEvent(RoomResult& event) const {
 	auto& weaponPtr{ std::get<std::unique_ptr<Weapon>>(event) };
 	std::cout << "Weapon Damage: " << weaponPtr->getDamage() << '\n';
 	if (m_player->isWeapon()) {
-
 	} else {
 		m_player->equipWeapon(std::move(weaponPtr));
 	}
-	
+
 	std::cout << "Weapon has been equipped!\n";
 }
 
 // Handle level up of the player (every monster killed as test)
 void Game::handleLevelup() const {
-	std::cout << "Level up! Damage and Health increased from: D: " << m_player->getDagame() << " H: " << m_player->getHealth();
+	std::cout << "Level up! Damage and Health increased from: D: " << m_player->getDagame()
+			  << " H: " << m_player->getHealth();
 	m_player->levelUp();
 	std::cout << " | To: D: " << m_player->getDagame() << " H: " << m_player->getHealth() << '\n';
 }
@@ -310,8 +302,7 @@ void Game::handleSwitchWeapon(std::unique_ptr<Weapon> weapon) const {
 	if (getSwitchWeaponInput()) {
 		m_player->equipWeapon(std::move(weapon));
 		std::cout << "Weapon has been equipped!\n";
-	}
-	else {
+	} else {
 		std::cout << "You left the weapon there.\n";
 	}
 }
@@ -344,8 +335,9 @@ bool Game::getSwitchWeaponInput() const {
 
 // Creates a new dungeon (when the boss has been killed for test)
 void Game::createNewDungeon() {
-	std::cout << "\033[32mCongratulations! You defeated the boss! A new dungeons has been created!\033[0m\n";
-	m_dungeon = std::make_unique<Dungeon>(DungeonsPrefab::createPrefabs());
+	std::cout << "\033[32mCongratulations! You defeated the boss! A new dungeons has been "
+				 "created!\033[0m\n";
+	m_dungeon = std::make_unique<Dungeon>(Graph().returnDungeon());
 	m_player->healToFull();
 	m_dungeon->resetPlayerPosition();
 }

@@ -1,0 +1,19 @@
+# Format Style Options - Created with Clang Power Tools
+---
+AllowAllConstructorInitializersOnNextLine: true
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+BinPackArguments: false
+BinPackParameters: false
+BreakConstructorInitializers: BeforeComma
+ColumnLimit: 100
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+Cpp11BracedListStyle: false
+IndentCaseBlocks: true
+IndentRequires: false
+IndentWidth: 4
+IndentWrappedFunctionNames: true
+PointerAlignment: Left
+TabWidth: 4
+UseTab: Always
+...

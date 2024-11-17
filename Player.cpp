@@ -1,9 +1,7 @@
 #include "Player.h"
 
 // Construct a player with a name
-Player::Player(std::string_view name)
-	: m_name{ name }
-{
+Player::Player(std::string_view name) : m_name{name} {
 	m_maxHealth = m_vitality * 10;
 	m_health = m_vitality * 10;
 	m_damage = m_strength;
@@ -24,7 +22,7 @@ int Player::getStr() const {
 	return m_strength;
 }
 
-// Return player name 
+// Return player name
 std::string_view Player::getName() const {
 	return m_name;
 }
@@ -36,12 +34,11 @@ int Player::getDagame() const {
 
 // Return true or false if the player has a weapon
 bool Player::isWeapon() const {
-	if (m_weapon)
-		return true;
+	if (m_weapon) return true;
 	return false;
 }
 
-// Heals the player full 
+// Heals the player full
 void Player::healToFull() {
 	m_health = m_maxHealth;
 }
@@ -70,8 +67,7 @@ void Player::takeHit(int damageRecieved) {
 // Equips weapon if no weapon is already equipped
 void Player::equipWeapon(std::unique_ptr<Weapon> weapon) {
 	m_weapon = std::move(weapon);
-	if (m_weapon)
-		m_damage += m_weapon->getDamage();
+	if (m_weapon) m_damage += m_weapon->getDamage();
 }
 
 // Adds items dropped by monsters to the inventory
@@ -93,14 +89,13 @@ void Player::useItem(int index) {
 // Returns the whole inventory as text
 void Player::getInventory() const {
 	if (!m_inventory.empty()) {
-		int index{ 0 };
+		int index{0};
 		for (const auto& items : m_inventory) {
 			std::cout << index << ": " << items->getName() << '\n';
 			++index;
 		}
 		std::cout << "5: Exit\n";
-	}
-	else {
+	} else {
 		std::cout << "Your inventory is empty!" << '\n';
 	}
 }

@@ -99,7 +99,10 @@
     <ClCompile Include="Potion.cpp">
       <Filter>Source Files\Items</Filter>
     </ClCompile>
-    <ClCompile Include="DungeonsPrefab.cpp">
+    <ClCompile Include="Graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -127,9 +130,6 @@
     </ClInclude>
     <ClInclude Include="Boar.h">
       <Filter>Header Files\Monsters</Filter>
-    </ClInclude>
-    <ClInclude Include="DungeonsPrefab.h">
-      <Filter>Header Files\Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="Dungeon.h">
       <Filter>Header Files\Dungeon</Filter>
@@ -163,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="Potion.h">
       <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
